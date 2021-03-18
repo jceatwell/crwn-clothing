@@ -1,16 +1,20 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import store from './redux/store';
 
 describe('App Tests', () => {
 
   test('renders HATS react link', () => {
     render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
     );
     const linkElement = screen.getByText(/HATS/i);
     expect(linkElement).toBeInTheDocument();
@@ -18,9 +22,11 @@ describe('App Tests', () => {
 
   test('Another way of setting the same things', () => {
     const { getByText } = render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
     );
     const linkElement = getByText(/HATS/i);
     expect(linkElement).toBeInTheDocument();
@@ -30,9 +36,11 @@ describe('App Tests', () => {
     const div = document.createElement('div');
 
     ReactDOM.render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
       , div);
     ReactDOM.unmountComponentAtNode(div);
   });

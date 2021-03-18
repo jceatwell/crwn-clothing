@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
@@ -26,4 +27,13 @@ const Header = ({ currentUser }) => (
     </div>
 );
 
-export default Header;
+// The state is the top level reproducer
+// NOte: this refers to root-reducer.js -> user
+// If we use -> to indicate "provides"
+// state -> user -> "userReducer" -> currentUser (user.reducer.js)
+
+const mapStateToProps = state => ({
+    currentUser: state.user.currentUser
+});
+
+export default connect(mapStateToProps)(Header);
